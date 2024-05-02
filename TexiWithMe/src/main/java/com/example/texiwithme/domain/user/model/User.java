@@ -26,6 +26,6 @@ public class User {
     String address;
 
     @Column(nullable = false)
-    @ColumnDefault("기본 이미지 구현 예정")
+    @ColumnDefault("'기본 이미지 구현 예정'")
     String profile;
 }

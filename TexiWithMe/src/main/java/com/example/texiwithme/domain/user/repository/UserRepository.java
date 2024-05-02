@@ -7,7 +7,5 @@ import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    Optional<User> findByUser_id(Long user_id); // user_id 기준으로 검색
-
     Optional<User> findByUsername(String Username); // username 기준으로 검색
 }
