@@ -5,10 +5,9 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Grade {
-    FIRST_GRADE(1),
-    SECOND_GRADE(2),
-    THIRD_GRADE(3);
+public enum Gender {
+    MALE("남"),
+    FEMALE("여");
 
-    private final int grade;
+    private final String gender;
 }

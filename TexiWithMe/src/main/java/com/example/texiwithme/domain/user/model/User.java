@@ -1,17 +1,30 @@
 package com.example.texiwithme.domain.user.model;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Data
 @Entity
+@DynamicInsert
+@DynamicUpdate
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "users")
 public class User {
     @Id
-    @Column
+    @Column(name = "user_id")
     @GeneratedValue
-    long user_id;
+    long userId;
+
+    @Column(nullable = false, name = "stu_id")
+    int stdId;
+
+    @Column(nullable = false, length = 20)
+    String name;
 
     @Column(nullable = false, length = 20)
     String username;
@@ -19,13 +32,20 @@ public class User {
     @Column(nullable = false)
     String password;
 
+    @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
-    Grade grade;
+    Gender gender;
 
     @Column(nullable = false)
-    String address;
-
-    @Column(nullable = false)
-    @ColumnDefault("'기본 이미지 구현 예정'")
     String profile;
+
+    @Builder
+    public User (int stdId, String name, String username, String password, Gender gender, String profile) {
+        this.stdId = stdId;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.gender = gender;
+        this.profile = profile == null ? "기본 이미지 구현 예정" : profile;
+    }
 }
