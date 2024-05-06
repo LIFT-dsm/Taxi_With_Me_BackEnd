@@ -18,14 +18,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
-    @Column(nullable = false, name = "stu_id")
-    private int stdId;
+    @Column(nullable = false, name = "student_id")
+    private int studentId;
 
     @Column(nullable = false, length = 20)
     private String name;
 
     @Column(nullable = false, length = 20)
-    private String username;
+    private String nickname;
 
     @Column(nullable = false)
     private String password;
@@ -40,7 +40,7 @@ public class User {
     protected User() {}
 
     @Builder
-    public User (int stdId, String name, String username, String password, Gender gender, String profile) {
+    public User(int stdId, String name, String username, String password, Gender gender, String profile) {
         this.stdId = stdId;
         this.name = name;
         this.username = username;
