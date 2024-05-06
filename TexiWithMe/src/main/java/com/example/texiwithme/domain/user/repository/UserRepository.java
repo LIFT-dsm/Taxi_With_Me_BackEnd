@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Long> {
-
-    Optional<User> findByStdIdOrUsername(int stuId, String username); // username 기준으로 검색
-    Optional<User> findByUsername(String username); // username 기준으로 검색
+    Optional<User> findByStudentIdOrNickname(int studentId, String nickname); 
+    Optional<User> findByNickname(String nickname); 
 }
