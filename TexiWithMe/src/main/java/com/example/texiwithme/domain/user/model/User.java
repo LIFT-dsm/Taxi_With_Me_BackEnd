@@ -18,13 +18,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
-    @Column(nullable = false, name = "student_id")
+    @Column(nullable = false, name = "student_id", length = 4)
     private int studentId;
 
     @Column(nullable = false, length = 20)
     private String name;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20, unique = true)
     private String nickname;
 
     @Column(nullable = false)
@@ -40,10 +40,10 @@ public class User {
     protected User() {}
 
     @Builder
-    public User(int stdId, String name, String username, String password, Gender gender, String profile) {
-        this.stdId = stdId;
+    public User(int studentId, String name, String nickname, String password, Gender gender, String profile) {
+        this.studentId = studentId;
         this.name = name;
-        this.username = username;
+        this.nickname = nickname;
         this.password = password;
         this.gender = gender;
         this.profile = profile.isBlank() ? "기본 이미지 구현 예정" : profile;
