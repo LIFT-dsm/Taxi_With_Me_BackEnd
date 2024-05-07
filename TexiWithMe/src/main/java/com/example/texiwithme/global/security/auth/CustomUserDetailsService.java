@@ -5,15 +5,10 @@ import com.example.texiwithme.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
-<<<<<<< Updated upstream
-@Controller
-@RequiredArgsConstructor
-=======
 @Service
->>>>>>> Stashed changes
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
