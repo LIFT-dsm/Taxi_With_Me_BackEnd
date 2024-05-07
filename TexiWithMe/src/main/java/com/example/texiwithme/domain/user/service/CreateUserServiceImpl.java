@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class CreateUserServiceImpl implements CreateUserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void createUser(SignupRequestDto signupRequestDto) {
+    public void create(SignupRequestDto signupRequestDto) {
         final int studentId = signupRequestDto.studentId();
         final String name = signupRequestDto.name();
         final String gender = signupRequestDto.gender();
