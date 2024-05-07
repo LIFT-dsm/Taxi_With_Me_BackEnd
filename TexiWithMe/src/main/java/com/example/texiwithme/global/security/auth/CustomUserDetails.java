@@ -1,11 +1,16 @@
 package com.example.texiwithme.global.security.auth;
 
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+@AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
+
+    private final String nickname;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -18,7 +23,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return nickname;
     }
 
     @Override
