@@ -8,7 +8,6 @@ import com.example.texiwithme.domain.user.model.User;
 import com.example.texiwithme.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,14 +19,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(SignupRequestDto signupRequestDto) {
-        int studentId = signupRequestDto.getStudentId();
-        String name = signupRequestDto.getName();
-        String gender = signupRequestDto.getGender();
-        String nickname = signupRequestDto.getNickname();
-        String password = signupRequestDto.getPassword();
+        final int studentId = signupRequestDto.studentId();
+        final String name = signupRequestDto.name();
+        final String gender = signupRequestDto.gender();
+        final String nickname = signupRequestDto.nickname();
+        final String password = passwordEncoder.encode(signupRequestDto.password());
 
         // 이미 존재하는 닉네임/학번인가?
-        if (userRepository.findByStudentIdOrNickname(studentId, nickname).isPresent() ) {
+        if (userRepository.existsByStudentIdOrNickname(studentId, nickname)) {
             throw UserAlreadyExists.EXCEPTION;
         }
 
@@ -39,12 +38,11 @@ public class UserServiceImpl implements UserService {
             throw EnumTypeNotExists.EXCEPTION;
         }
 
-
         userRepository.save(User.builder()
                         .studentId(studentId)
                         .name(name)
                         .nickname(nickname)
-                        .password(passwordEncoder.encode(password))
+                        .password(password)
                         .gender(genderType)
                         .build());
     }
