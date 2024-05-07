@@ -9,8 +9,9 @@ import com.example.texiwithme.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
-@Controller
+@Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
