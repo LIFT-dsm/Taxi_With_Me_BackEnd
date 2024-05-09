@@ -31,17 +31,30 @@ public class JwtProvider implements InitializingBean {
         this.key = Keys.hmacShaKeyFor(KeyBytes);
     }
 
-    public String generateAccess(String username, Long user_id) {
+    public String generateAccess(String nickname, Long user_id) {
 
         // 만료시간 계산
         long now = (new Date()).getTime();
         Date exprireAt = (new Date(now + jwtProperties.getAccessExpiration()));
 
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(nickname)
                 .claim("type", "access")
                 .claim("user_id", user_id)
                 .setExpiration(exprireAt)
+                .signWith(key)
+                .compact();
+    }
+
+    public String generateRefresh(String nickname, Long user_id) {
+
+        long now = (new Date()).getTime();
+        Date expriredAt = (new Date(now + jwtProperties.getRefreshExpiration()));
+
+        return Jwts.builder()
+                .setSubject(nickname)
+                .claim("user_id", user_id)
+                .setExpiration(expriredAt)
                 .signWith(key)
                 .compact();
     }
