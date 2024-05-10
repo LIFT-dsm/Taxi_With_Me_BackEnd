@@ -8,6 +8,8 @@ import lombok.Getter;
 public enum ErrorCode {
 
     // user
+    USER_NOT_EXISTS(404, "존재하지 않는 유저입니다"),
+    PASSWORD_NOT_MATCHES(403, "비밀번호가 맞지 않습니다"),
     USER_ALREADY_EXISTS(409, "이미 같은 닉네임 또는 학번의 유저가 존재합니다."),
     GENDER_TYPE_DOES_NOT_EXISTS(409, "성별 타입이 존재하지 않습니다."),
 
