@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 @Setter
 @Getter
 @Component
-@RequiredArgsConstructor
 @ConfigurationProperties(prefix = "jwt")
 public class JwtProperties {
     private String prefix;
