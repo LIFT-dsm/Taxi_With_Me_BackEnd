@@ -11,13 +11,14 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 
 import java.security.Key;
 import java.util.Date;
 
-@Controller
+@Component
 @RequiredArgsConstructor
 public class JwtProvider implements InitializingBean {
     private final JwtProperties jwtProperties;
@@ -26,22 +27,21 @@ public class JwtProvider implements InitializingBean {
     private Key key;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         byte[] KeyBytes = Decoders.BASE64.decode(jwtProperties.getSecret());
         this.key = Keys.hmacShaKeyFor(KeyBytes);
     }
 
-    public String generateAccess(String nickname, Long user_id) {
-
+    public String generateAccess(String nickname, Long userId) {
         // 만료시간 계산
         long now = (new Date()).getTime();
-        Date exprireAt = (new Date(now + jwtProperties.getAccessExpiration()));
+        Date expiredAt = (new Date(now + jwtProperties.getAccessExpiration()));
 
         return Jwts.builder()
                 .setSubject(nickname)
                 .claim("type", "access")
-                .claim("user_id", user_id)
-                .setExpiration(exprireAt)
+                .claim("user_id", userId)
+                .setExpiration(expiredAt)
                 .signWith(key)
                 .compact();
     }
