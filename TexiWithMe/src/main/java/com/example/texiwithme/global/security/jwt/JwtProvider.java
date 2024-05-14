@@ -27,14 +27,14 @@ public class JwtProvider implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        byte[] KeyBytes = Decoders.BASE64.decode(jwtProperties.getSecret());
+        byte[] KeyBytes = Decoders.BASE64.decode(jwtProperties.secret());
         this.key = Keys.hmacShaKeyFor(KeyBytes);
     }
 
     public String generateAccess(String nickname, Long userId) {
         // 만료시간 계산
         long now = (new Date()).getTime();
-        Date expiredAt = (new Date(now + jwtProperties.getAccessExpiration()));
+        Date expiredAt = (new Date(now + jwtProperties.accessExpiration()));
 
         return Jwts.builder()
                 .setSubject(nickname)
@@ -48,7 +48,7 @@ public class JwtProvider implements InitializingBean {
     public String generateRefresh(String nickname, Long user_id) {
 
         long now = (new Date()).getTime();
-        Date expriredAt = (new Date(now + jwtProperties.getRefreshExpiration()));
+        Date expriredAt = (new Date(now + jwtProperties.refreshExpiration()));
 
         return Jwts.builder()
                 .setSubject(nickname)
@@ -77,11 +77,10 @@ public class JwtProvider implements InitializingBean {
     }
 
     public String getToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(jwtProperties.getHeader());
+        String bearerToken = request.getHeader(jwtProperties.header());
 
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.getPrefix())
-            && bearerToken.length() > jwtProperties.getPrefix().length() + 1) {
-            return bearerToken.substring(8);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.prefix())) {
+            return bearerToken.substring(7);
         }
 
         return null;
