@@ -44,6 +44,7 @@ public class CreateUserServiceImpl implements CreateUserService {
                         .nickname(nickname)
                         .password(password)
                         .gender(genderType)
+                        .profile("")
                         .build());
     }
 }
