@@ -1,17 +1,17 @@
 package com.example.texiwithme.global.security.jwt;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@Setter
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 @ConfigurationProperties(prefix = "jwt")
-public class JwtProperties {
-    private final String prefix;
-    private final String header;
-    private final String secret;
-    private final Long accessExpiration;
-    private final Long refreshExpiration;
-
+public record JwtProperties(
+        String header,
+        String prefix,
+        String secret,
+        Long accessExpiration,
+        Long refreshExpiration
+) {
 }

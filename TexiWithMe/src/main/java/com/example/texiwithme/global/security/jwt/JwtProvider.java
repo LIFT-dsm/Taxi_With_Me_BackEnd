@@ -23,27 +23,27 @@ public class JwtProvider {
     public String generateAccess(String nickname, Long userId) {
         // 만료시간 계산
         long now = (new Date()).getTime();
-        Date expiredAt = (new Date(now + jwtProperties.getAccessExpiration()));
+        Date expiredAt = (new Date(now + jwtProperties.accessExpiration()));
 
         return Jwts.builder()
                 .setSubject(nickname)
                 .claim("type", "access")
                 .claim("user_id", userId)
                 .setExpiration(expiredAt)
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.secret())
                 .compact();
     }
 
     public String generateRefresh(String nickname, Long user_id) {
 
         long now = (new Date()).getTime();
-        Date expriredAt = (new Date(now + jwtProperties.getRefreshExpiration()));
+        Date expriredAt = (new Date(now + jwtProperties.refreshExpiration()));
 
         return Jwts.builder()
                 .setSubject(nickname)
                 .claim("user_id", user_id)
                 .setExpiration(expriredAt)
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.secret())
                 .compact();
     }
 
@@ -57,7 +57,7 @@ public class JwtProvider {
         try {
             return Jwts
                     .parser()
-                    .setSigningKey(jwtProperties.getSecret())
+                    .setSigningKey(jwtProperties.secret())
                     .parseClaimsJws(token)
                     .getBody();
         } catch(Exception e) {
@@ -66,11 +66,10 @@ public class JwtProvider {
     }
 
     public String getToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(jwtProperties.getHeader());
+        String bearerToken = request.getHeader(jwtProperties.header());
 
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.getPrefix())
-            && bearerToken.length() > jwtProperties.getPrefix().length() + 1) {
-            return bearerToken.substring(8);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.prefix())) {
+            return bearerToken.substring(7);
         }
 
         return null;
