@@ -16,10 +16,10 @@ public class User {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userId;
+    private Long userId;
 
     @Column(nullable = false, name = "student_id", length = 4)
-    private int studentId;
+    private Integer studentId;
 
     @Column(nullable = false, length = 20)
     private String name;
