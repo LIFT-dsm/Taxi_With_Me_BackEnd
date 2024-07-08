@@ -18,15 +18,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-
     private final JwtProvider jwtProvider;
 
     @Bean
-    public static BCryptPasswordEncoder bCryptPasswordEncoder() { return new BCryptPasswordEncoder(); }
+    public static BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
-
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
