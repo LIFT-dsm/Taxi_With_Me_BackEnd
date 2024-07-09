@@ -6,10 +6,10 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
-public class TexiWithMeApplication {
+public class TaxiWithMeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TexiWithMeApplication.class, args);
+        SpringApplication.run(TaxiWithMeApplication.class, args);
     }
 
 }

@@ -25,10 +25,13 @@ public class JwtProvider {
         long now = (new Date()).getTime();
         Date expiredAt = (new Date(now + jwtProperties.accessExpiration()));
 
+        Claims claims = Jwts.claims();
+        claims.put("nickname", nickname);
+        claims.put("type", "access");
+        claims.put("user_id", userId);
+
         return Jwts.builder()
-                .setSubject(nickname)
-                .claim("type", "access")
-                .claim("user_id", userId)
+                .setClaims(claims)
                 .setExpiration(expiredAt)
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.secret())
                 .compact();
@@ -41,6 +44,7 @@ public class JwtProvider {
 
         return Jwts.builder()
                 .setSubject(nickname)
+                .claim("type", "refresh")
                 .claim("user_id", user_id)
                 .setExpiration(expriredAt)
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.secret())
@@ -49,7 +53,7 @@ public class JwtProvider {
 
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(claims.getSubject());
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername((String) claims.get("nickname"));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
@@ -68,7 +72,12 @@ public class JwtProvider {
     public String getToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(jwtProperties.header());
 
+<<<<<<< Updated upstream
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.prefix())) {
+=======
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.getPrefix())
+            && bearerToken.length() > jwtProperties.getPrefix().length() + 1) {
+>>>>>>> Stashed changes
             return bearerToken.substring(7);
         }
 
