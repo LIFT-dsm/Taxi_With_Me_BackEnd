@@ -6,13 +6,14 @@ import com.example.texiwithme.domain.user.exception.UserAlreadyExists;
 import com.example.texiwithme.domain.user.model.Gender;
 import com.example.texiwithme.domain.user.model.User;
 import com.example.texiwithme.domain.user.repository.UserRepository;
+import com.example.texiwithme.domain.user.usecase.CreateUserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CreateUserServiceImpl implements CreateUserService {
+public class CreateUserServiceImpl implements CreateUserUseCase {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
