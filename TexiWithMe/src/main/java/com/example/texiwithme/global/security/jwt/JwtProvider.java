@@ -30,11 +30,6 @@ public class JwtProvider {
         claims.put("type", "access");
         claims.put("user_id", userId);
 
-        Claims claims = Jwts.claims();
-        claims.put("nickname", nickname);
-        claims.put("type", "access");
-        claims.put("user_id", userId);
-
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(expiredAt)
@@ -82,8 +77,7 @@ public class JwtProvider {
 =======
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.getPrefix())
             && bearerToken.length() > jwtProperties.getPrefix().length() + 1) {
->>>>>>> Stashed changes
-            return bearerToken.substring(7);
+            return bearerToken.substring(8);
         }
 
         return null;
