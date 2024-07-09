@@ -30,11 +30,6 @@ public class JwtProvider {
         claims.put("type", "access");
         claims.put("user_id", userId);
 
-        Claims claims = Jwts.claims();
-        claims.put("nickname", nickname);
-        claims.put("type", "access");
-        claims.put("user_id", userId);
-
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(expiredAt)
@@ -77,11 +72,7 @@ public class JwtProvider {
     public String getToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(jwtProperties.header());
 
-<<<<<<< Updated upstream
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.prefix())) {
-=======
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.getPrefix())
-            && bearerToken.length() > jwtProperties.getPrefix().length() + 1) {
             return bearerToken.substring(7);
         }
 

@@ -40,8 +40,8 @@ public class LoginServiceImpl implements LoginService {
 
         Long now = (new Date()).getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String access_expired_At = dateFormat.format(new Date(now + jwtProperties.getAccessExpiration()));
-        String refresh_expired_At = dateFormat.format(new Date(now + jwtProperties.getRefreshExpiration()));
+        String access_expired_At = dateFormat.format(new Date(now + jwtProperties.accessExpiration()));
+        String refresh_expired_At = dateFormat.format(new Date(now + jwtProperties.refreshExpiration()));
 
         return new LoginRespondDto(access_token, refresh_token, access_expired_At, refresh_expired_At);
     }
