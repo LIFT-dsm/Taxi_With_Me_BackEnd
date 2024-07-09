@@ -30,6 +30,11 @@ public class JwtProvider {
         claims.put("type", "access");
         claims.put("user_id", userId);
 
+        Claims claims = Jwts.claims();
+        claims.put("nickname", nickname);
+        claims.put("type", "access");
+        claims.put("user_id", userId);
+
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(expiredAt)
