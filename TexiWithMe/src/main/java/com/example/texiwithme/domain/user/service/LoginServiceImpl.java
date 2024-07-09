@@ -6,6 +6,7 @@ import com.example.texiwithme.domain.user.exception.PasswordNotMatches;
 import com.example.texiwithme.domain.user.exception.UserNotExists;
 import com.example.texiwithme.domain.user.model.User;
 import com.example.texiwithme.domain.user.repository.UserRepository;
+import com.example.texiwithme.domain.user.usecase.LoginUseCase;
 import com.example.texiwithme.global.security.jwt.JwtProperties;
 import com.example.texiwithme.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-public class LoginServiceImpl implements LoginService {
+public class LoginServiceImpl implements LoginUseCase {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
